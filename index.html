@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="面向新入组同学的 LLM for Graph、图基础模型、系统与硬件加速学习路线。" />
   <title>LLM for Graph 研究资料与学习路线</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261027-compact" />
 </head>
 <body>
   <a class="skip-link" href="#content">跳到正文</a>
@@ -52,10 +52,10 @@
         <div><span>阅读原则</span><strong>先理解任务<br />再讨论加速</strong></div>
       </div>
       <div class="legend" aria-label="内容标签说明">
-        <span class="badge fact">已发表</span><span>同行评议论文或官方资料</span>
-        <span class="badge preprint">预印本</span><span>适合跟踪，不等同定论</span>
-        <span class="badge local">组内资料</span><span>本地论文或在研稿</span>
-        <span class="badge guide">导读</span><span>为学习组织的解释与判断</span>
+        <span class="legend-item"><span class="badge fact">会议 / 期刊</span><span>条目标注会刊与年份</span></span>
+        <span class="legend-item"><span class="badge preprint">arXiv</span><span>条目标注发布年份</span></span>
+        <span class="legend-item"><span class="badge local">组内资料</span><span>本地论文或在研稿</span></span>
+        <span class="legend-item"><span class="badge guide">导读</span><span>为学习组织的解释与判断</span></span>
       </div>
     </header>
 
@@ -91,8 +91,8 @@
 
           <h3>建议先读的全景 survey</h3>
           <div class="resource-list">
-            <a class="resource" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><small>用 Predictor / Encoder / Aligner 组织 LLM on Graph，是建立算法地图的好入口。</small></span><span class="badge preprint">预印本</span></a>
-            <a class="resource" href="https://arxiv.org/abs/2405.08011" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>A Survey of Large Language Models for Graphs</strong><small>重点阅读语言模型帮助图任务的表示、训练与协同方法。</small></span><span class="badge preprint">预印本</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><small>用 Predictor / Encoder / Aligner 组织 LLM on Graph，是建立算法地图的好入口。</small></span><span class="badge fact">TKDE'2024</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2405.08011" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>A Survey of Large Language Models for Graphs</strong><small>重点阅读语言模型帮助图任务的表示、训练与协同方法。</small></span><span class="badge fact">KDD'2024</span></a>
           </div>
         </div>
       </section>
@@ -133,11 +133,11 @@
 
           <h3>代表工作：按问题而不是按年份读</h3>
           <div class="resource-list">
-            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N23</span><span><strong>NLGraph</strong><small>先回答“LLM 能否用自然语言解决图问题”，适合理解纯 LLM 图推理的边界。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>Graph Language Models</strong><small>阅读时关注输入图如何表示、模型输出是什么，以及图任务怎样评测。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>InstructGraph</strong><small>通过图指令数据与偏好对齐增强通用图推理。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/0d70af566e69f1dfb687791ecf955e28-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N24</span><span><strong>KG-ICL</strong><small>关注知识图谱场景中的 in-context learning 与结构迁移。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://proceedings.mlr.press/v267/wang25bq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Generalization Principles for LLMs on Text-Attributed Graphs</strong><small>理解 TAG 上泛化来自哪里，而不只看单一 benchmark 的精度。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N23</span><span><strong>NLGraph</strong><small>先回答“LLM 能否用自然语言解决图问题”，适合理解纯 LLM 图推理的边界。</small></span><span class="badge fact">NeurIPS'2023</span></a>
+            <a class="resource" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>Graph Language Models</strong><small>阅读时关注输入图如何表示、模型输出是什么，以及图任务怎样评测。</small></span><span class="badge fact">ACL'2024</span></a>
+            <a class="resource" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>InstructGraph</strong><small>通过图指令数据与偏好对齐增强通用图推理。</small></span><span class="badge fact">ACL Findings'2024</span></a>
+            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/0d70af566e69f1dfb687791ecf955e28-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N24</span><span><strong>KG-ICL</strong><small>关注知识图谱场景中的 in-context learning 与结构迁移。</small></span><span class="badge fact">NeurIPS'2024</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/wang25bq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Generalization Principles for LLMs on Text-Attributed Graphs</strong><small>理解 TAG 上泛化来自哪里，而不只看单一 benchmark 的精度。</small></span><span class="badge fact">ICML'2025</span></a>
           </div>
 
           <div class="question-box"><strong>读完应能回答</strong><ul><li>为什么把邻接表直接写进 prompt 往往不是可扩展方案？</li><li>语义编码与关系结构分别贡献了哪些信息？</li><li>冻结 LLM、微调 LLM、训练对齐层分别适用于什么资源条件？</li></ul></div>
@@ -158,10 +158,10 @@
           </div>
 
           <div class="resource-list">
-            <a class="resource" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">R25</span><span><strong>GOFA</strong><small>面向图上任务的生成式基础模型框架。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>GIT: A Generative Graph Foundation Model via Task Trees</strong><small>通过任务树统一多种图学习任务。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Graph Generative Pre-trained Transformer</strong><small>理解图结构如何进入生成式预训练。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://arxiv.org/abs/2505.15116" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Graph Foundation Models: A Survey</strong><small>系统梳理 GFM 的定义、模型、数据与评测。</small></span><span class="badge preprint">预印本</span></a>
+            <a class="resource" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">R25</span><span><strong>GOFA</strong><small>面向图上任务的生成式基础模型框架。</small></span><span class="badge fact">ICLR'2025</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>GIT: Learning Generalities Across Graphs via Task-Trees</strong><small>通过任务树统一多种图学习任务。</small></span><span class="badge fact">ICML'2025</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Graph Generative Pre-trained Transformer</strong><small>理解图结构如何进入生成式预训练。</small></span><span class="badge fact">ICML'2025</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2505.15116" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Graph Foundation Models: A Comprehensive Survey</strong><small>系统梳理 GFM 的定义、模型、数据与评测。</small></span><span class="badge preprint">arXiv'2025</span></a>
           </div>
 
           <div class="question-box"><strong>读论文时重点检查</strong><ul><li>“跨图”是否只是在相似数据集之间迁移？</li><li>是否依赖节点文本；没有文本时还能否工作？</li><li>统一的是模型参数、提示空间、任务接口，还是数据模式？</li><li>大模型带来的增益是否值得其编码与推理成本？</li></ul></div>
@@ -210,9 +210,9 @@
           </ol>
 
           <div class="resource-list">
-            <a class="resource" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noreferrer"><span class="paper-type">N22</span><span><strong>FlashAttention</strong><small>用 IO 复杂度理解 attention 优化的经典入口。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://doi.org/10.1109/HPCA51647.2021.00035" target="_blank" rel="noreferrer"><span class="paper-type">H21</span><span><strong>SpAtten</strong><small>级联 token/head 剪枝与稀疏 attention 架构。</small></span><span class="badge fact">已发表</span></a>
-            <a class="resource" href="https://doi.org/10.1145/3503222.3507738" target="_blank" rel="noreferrer"><span class="paper-type">A22</span><span><strong>TransPIM</strong><small>理解 Transformer 近存处理的数据布局与算子映射。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noreferrer"><span class="paper-type">N22</span><span><strong>FlashAttention</strong><small>用 IO 复杂度理解 attention 优化的经典入口。</small></span><span class="badge fact">NeurIPS'2022</span></a>
+            <a class="resource" href="https://doi.org/10.1109/HPCA51647.2021.00018" target="_blank" rel="noreferrer"><span class="paper-type">H21</span><span><strong>SpAtten</strong><small>级联 token/head 剪枝与稀疏 attention 架构。</small></span><span class="badge fact">HPCA'2021</span></a>
+            <a class="resource" href="https://doi.org/10.1109/HPCA53966.2022.00082" target="_blank" rel="noreferrer"><span class="paper-type">H22</span><span><strong>TransPIM</strong><small>理解 Transformer 近存处理的数据布局与算子映射。</small></span><span class="badge fact">HPCA'2022</span></a>
           </div>
 
           <p class="source-note">补充课程：<a href="https://hanlab.mit.edu/courses/2024-fall-65940" target="_blank" rel="noreferrer">MIT 6.5940 EfficientML / TinyML</a>。前几讲适合建立剪枝、量化、稀疏与数据流基础。</p>
@@ -257,14 +257,14 @@
           </div>
 
           <div class="paper-library" id="paperLibrary">
-            <a data-tags="survey llm4graph" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span>2023</span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><em>Survey · LLM4Graph</em></a>
-            <a data-tags="llm4graph" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2023</span><strong>NLGraph</strong><em>NeurIPS · Graph Reasoning</em></a>
-            <a data-tags="llm4graph" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span>2024</span><strong>Graph Language Models</strong><em>ACL · Graph + Language</em></a>
-            <a data-tags="llm4graph" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span>2024</span><strong>InstructGraph</strong><em>ACL Findings · Instruction Tuning</em></a>
-            <a data-tags="gfm" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GOFA</strong><em>ICLR · Graph Foundation Model</em></a>
-            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GIT</strong><em>ICML · Task Trees</em></a>
-            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span>2025</span><strong>Graph Generative Pre-trained Transformer</strong><em>ICML · Generative Graph Model</em></a>
-            <a data-tags="hardware gfm" href="https://doi.org/10.1145/3658617.3697645" target="_blank" rel="noreferrer"><span>2025</span><strong>GFMEngine</strong><em>ASP-DAC · GFM Accelerator</em></a>
+            <a data-tags="survey llm4graph" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span>2024</span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><em>TKDE'2024</em></a>
+            <a data-tags="llm4graph" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2023</span><strong>NLGraph</strong><em>NeurIPS'2023</em></a>
+            <a data-tags="llm4graph" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span>2024</span><strong>Graph Language Models</strong><em>ACL'2024</em></a>
+            <a data-tags="llm4graph" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span>2024</span><strong>InstructGraph</strong><em>ACL Findings'2024</em></a>
+            <a data-tags="gfm" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GOFA</strong><em>ICLR'2025</em></a>
+            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GIT</strong><em>ICML'2025</em></a>
+            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span>2025</span><strong>Graph Generative Pre-trained Transformer</strong><em>ICML'2025</em></a>
+            <a data-tags="hardware gfm" href="https://doi.org/10.1145/3658617.3697645" target="_blank" rel="noreferrer"><span>2025</span><strong>GFMEngine</strong><em>ASP-DAC'2025</em></a>
           </div>
           <p id="noResults" class="no-results" hidden>没有匹配的资料，请换一个关键词或筛选条件。</p>
         </div>
