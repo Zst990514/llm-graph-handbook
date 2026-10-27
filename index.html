@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="面向新入组同学的 LLM for Graph、图基础模型、系统与硬件加速学习路线。" />
+  <title>LLM for Graph 研究资料与学习路线</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <button class="menu-button" id="menuButton" aria-label="打开目录" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <p class="brand-kicker">RESEARCH ONBOARDING</p>
+      <a href="#top">LLM for Graph 研究资料</a>
+      <p>给新入组同学的算法—系统—硬件学习路线</p>
+    </div>
+    <nav aria-label="文档目录">
+      <a href="#s01">01 背景与全景图</a>
+      <a href="#s02">02 前置基础</a>
+      <a href="#s03">03 算法：LLM for Graph</a>
+      <a href="#s06">04 算法：图基础模型</a>
+      <a href="#s08">05 系统：端到端协同</a>
+      <a href="#s09">06 硬件：Transformer / LLM</a>
+      <a href="#s13">07 学习计划</a>
+      <a href="#s14">08 资料库</a>
+      <a href="#summary">总结</a>
+    </nav>
+    <div class="sidebar-note">
+      <span>更新</span>
+      <strong>2026.10</strong>
+      <p>同一条事实尽量链接到论文或官方文档。</p>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <main id="content">
+    <header class="hero" id="top">
+      <div class="eyebrow">LAB HANDBOOK · 2023—2026</div>
+      <h1>LLM for Graph 研究资料与学习路线</h1>
+      <p class="lead">这是一条从图任务、算法、计算特性走向系统与硬件的阅读路径。目标是让第一次进入该方向的同学知道：语言模型如何帮助理解、预测与生成图，怎样进一步学习图基础模型，以及每一段计算究竟慢在哪里。</p>
+      <div class="hero-grid">
+        <div><span>学习主线</span><strong>LLM for Graph<br />图基础模型与加速</strong></div>
+        <div><span>五层系统</span><strong>数据 · 表示 · 对齐<br />推理 · 生成</strong></div>
+        <div><span>阅读原则</span><strong>先理解任务<br />再讨论加速</strong></div>
+      </div>
+      <div class="legend" aria-label="内容标签说明">
+        <span class="badge fact">已发表</span><span>同行评议论文或官方资料</span>
+        <span class="badge preprint">预印本</span><span>适合跟踪，不等同定论</span>
+        <span class="badge local">组内资料</span><span>本地论文或在研稿</span>
+        <span class="badge guide">导读</span><span>为学习组织的解释与判断</span>
+      </div>
+    </header>
+
+    <article>
+      <section id="s01" class="chapter">
+        <div class="chapter-number">01</div>
+        <div class="chapter-body">
+          <h2>背景：为什么用 LLM 处理图任务</h2>
+          <p>图数据通常同时包含节点与边的关系结构，以及论文摘要、商品描述等文本属性。LLM for Graph 关注怎样利用语言模型的<strong>语义理解</strong>与<strong>指令处理</strong>能力，完成节点分类、链接预测、图问答和图生成等任务。</p>
+
+          <div class="flow-overview">
+            <div class="flow-card blue">
+              <p class="flow-label">学习主线</p>
+              <h3>LLM for Graph</h3>
+              <p>语言模型帮助图任务：把文本属性编码为节点表示、把图问题转为指令、生成图结构、解释预测，或直接作为图任务求解器。</p>
+              <div class="flow-line">自然语言 / 文本属性 → LLM → 图表示 / 图预测</div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>先记住一个判断</strong>
+            <p>从具体图任务出发，分别检查文本属性和关系结构提供了哪些信息，再判断语言模型带来的精度、迁移能力或可解释性收益是否值得其编码与推理成本。</p>
+          </div>
+
+          <h3>领域的五个层次</h3>
+          <ol class="numbered-list">
+            <li><strong>数据层：</strong>同构图、异构图、知识图谱、文本属性图（TAG）、动态图。</li>
+            <li><strong>表示层：</strong>图嵌入、文本嵌入、图—文对齐、统一 token / embedding 空间。</li>
+            <li><strong>任务层：</strong>节点/边/图预测、图问答、多跳推理、图生成与结构化解释。</li>
+            <li><strong>系统层：</strong>数据构建、图序列化、图—文对齐、Prompt 构造、LLM 推理与结果校验。</li>
+            <li><strong>硬件层：</strong>稠密 GEMM、图序列编码、不规则数据搬移与长上下文推理。</li>
+          </ol>
+
+          <h3>建议先读的全景 survey</h3>
+          <div class="resource-list">
+            <a class="resource" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><small>用 Predictor / Encoder / Aligner 组织 LLM on Graph，是建立算法地图的好入口。</small></span><span class="badge preprint">预印本</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2405.08011" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>A Survey of Large Language Models for Graphs</strong><small>重点阅读语言模型帮助图任务的表示、训练与协同方法。</small></span><span class="badge preprint">预印本</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="s02" class="chapter">
+        <div class="chapter-number">02</div>
+        <div class="chapter-body">
+          <h2>前置基础：进入方向前要补什么</h2>
+          <p>建议不要直接从某一篇加速器论文开始。先补齐三块基础，否则很容易把“算法瓶颈”“系统瓶颈”和“实现不成熟”混为一谈。</p>
+
+          <div class="study-grid">
+            <div class="study-card"><span>01</span><h3>图表示与图算法</h3><p>节点、边、邻接表、CSR/CSC、BFS、最短路、路径与异构关系。</p><small>目标：能表达图的连接关系，理解图序列化的长度与节点顺序，以及基础图算法的数据流。</small></div>
+            <div class="study-card"><span>02</span><h3>Transformer 与 LLM</h3><p>Attention、MLP、KV cache、prefill/decode、量化、稀疏化、FlashAttention。</p><small>目标：能解释训练、prefill 和 decode 的瓶颈为何不同。</small></div>
+            <div class="study-card"><span>03</span><h3>图任务与评测</h3><p>节点分类、链接预测、图问答、图生成、训练/验证/测试划分与跨图迁移。</p><small>目标：能说明每个任务的输入、输出与质量指标，并检查数据泄漏和泛化能力。</small></div>
+          </div>
+
+          <h3>几个容易混淆的概念</h3>
+          <details open><summary>知识图谱（KG）和普通图有什么区别？</summary><p>普通图强调节点与边的连接结构；知识图谱进一步赋予节点、关系明确语义，常用三元组（头实体，关系，尾实体）表示。图问答和图推理系统可以使用 KG，也可以使用文档图、引用图、事件图或运行时构建的图。</p></details>
+          <details><summary>文本属性图（TAG）是什么？</summary><p>Text-Attributed Graph 的节点或边带有自然语言文本。论文引用网络、商品—用户网络、社交网络都可以是 TAG。它要求语义表示与关系结构协同，因此是 LLM for Graph 的重要数据形态。</p></details>
+          <details><summary>图嵌入和文本嵌入是一回事吗？</summary><p>都可以表示为向量，但信息来源不同。文本嵌入强调语义相似性，图嵌入强调邻域、角色或路径结构。融合时必须回答：在哪一层对齐、谁指导谁、结构噪声怎样处理。</p></details>
+        </div>
+      </section>
+
+      <section id="s03" class="chapter">
+        <div class="chapter-number">03</div>
+        <div class="chapter-body">
+          <h2>算法：LLM for Graph</h2>
+          <p>这一主线的问题是：怎样利用 LLM 的语言理解、指令跟随与知识先验，提升图任务的表示、迁移、可解释性或少样本能力。</p>
+
+          <h3>四种典型角色</h3>
+          <div class="role-table">
+            <div class="role-row role-head"><span>角色</span><span>LLM 做什么</span><span>典型瓶颈</span></div>
+            <div class="role-row"><strong>Predictor</strong><span>把图序列化为文本，直接回答路径、分类或问答任务。</span><span>上下文过长；对节点顺序敏感；精确图算法不稳定。</span></div>
+            <div class="role-row"><strong>Encoder</strong><span>编码节点、边或文档文本，为图任务提供语义向量。</span><span>大量重复文本编码，成本常高于结构处理本身。</span></div>
+            <div class="role-row"><strong>Aligner</strong><span>把图表示与语言空间对齐，支持跨任务迁移与零样本预测。</span><span>对齐目标、负样本与跨图泛化困难。</span></div>
+            <div class="role-row"><strong>Generator / Teacher</strong><span>生成图、标签、解释或伪标注，指导较小图模型。</span><span>结构合法性、幻觉与验证成本。</span></div>
+          </div>
+
+          <h3>代表工作：按问题而不是按年份读</h3>
+          <div class="resource-list">
+            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N23</span><span><strong>NLGraph</strong><small>先回答“LLM 能否用自然语言解决图问题”，适合理解纯 LLM 图推理的边界。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>Graph Language Models</strong><small>阅读时关注输入图如何表示、模型输出是什么，以及图任务怎样评测。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span class="paper-type">A24</span><span><strong>InstructGraph</strong><small>通过图指令数据与偏好对齐增强通用图推理。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/0d70af566e69f1dfb687791ecf955e28-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">N24</span><span><strong>KG-ICL</strong><small>关注知识图谱场景中的 in-context learning 与结构迁移。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/wang25bq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Generalization Principles for LLMs on Text-Attributed Graphs</strong><small>理解 TAG 上泛化来自哪里，而不只看单一 benchmark 的精度。</small></span><span class="badge fact">已发表</span></a>
+          </div>
+
+          <div class="question-box"><strong>读完应能回答</strong><ul><li>为什么把邻接表直接写进 prompt 往往不是可扩展方案？</li><li>语义编码与关系结构分别贡献了哪些信息？</li><li>冻结 LLM、微调 LLM、训练对齐层分别适用于什么资源条件？</li></ul></div>
+        </div>
+      </section>
+
+      <section id="s06" class="chapter">
+        <div class="chapter-number">04</div>
+        <div class="chapter-body">
+          <h2>算法：Graph Foundation Models</h2>
+          <p>图基础模型（GFM）试图用统一模型跨图、跨领域或跨任务迁移。它不是把单一图模型简单放大：真正困难的是不同图之间没有天然统一的节点语义、特征维度、关系类型和标签空间。</p>
+
+          <h3>三条演进路线</h3>
+          <div class="timeline">
+            <div><time>路线 1</time><strong>统一任务表达</strong><p>把分类、链接预测、图问答等任务转成统一提示或 task tree。</p></div>
+            <div><time>路线 2</time><strong>统一图—文空间</strong><p>借助 LLM 把节点文本、标签描述与结构表征映射到可迁移语义空间。</p></div>
+            <div><time>路线 3</time><strong>生成式图模型</strong><p>把节点、边或图操作 token 化，通过生成目标学习结构规律。</p></div>
+          </div>
+
+          <div class="resource-list">
+            <a class="resource" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span class="paper-type">R25</span><span><strong>GOFA</strong><small>面向图上任务的生成式基础模型框架。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>GIT: A Generative Graph Foundation Model via Task Trees</strong><small>通过任务树统一多种图学习任务。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span class="paper-type">I25</span><span><strong>Graph Generative Pre-trained Transformer</strong><small>理解图结构如何进入生成式预训练。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://arxiv.org/abs/2505.15116" target="_blank" rel="noreferrer"><span class="paper-type">PDF</span><span><strong>Graph Foundation Models: A Survey</strong><small>系统梳理 GFM 的定义、模型、数据与评测。</small></span><span class="badge preprint">预印本</span></a>
+          </div>
+
+          <div class="question-box"><strong>读论文时重点检查</strong><ul><li>“跨图”是否只是在相似数据集之间迁移？</li><li>是否依赖节点文本；没有文本时还能否工作？</li><li>统一的是模型参数、提示空间、任务接口，还是数据模式？</li><li>大模型带来的增益是否值得其编码与推理成本？</li></ul></div>
+        </div>
+      </section>
+
+      <section id="s08" class="chapter">
+        <div class="chapter-number">05</div>
+        <div class="chapter-body">
+          <h2>系统：端到端协同怎样拆</h2>
+          <p>做体系结构研究前，先画清在线与离线边界。只优化一个 kernel，而它在真实流水线中占比很小，通常难以形成有说服力的端到端收益。</p>
+
+          <div class="stack">
+            <div><span>离线</span><strong>文本 / 图数据摄取</strong><small>解析、实体抽取、关系抽取、消歧、图构建</small></div>
+            <div><span>离线 + 训练</span><strong>图—文表示</strong><small>LLM 编码、结构编码、模态投影与对齐目标</small></div>
+            <div><span>在线</span><strong>结构转换</strong><small>图序列化、结构 token、路径或规则表达</small></div>
+            <div><span>在线</span><strong>图任务预测</strong><small>节点分类、链接预测与图问答</small></div>
+            <div><span>在线</span><strong>生成与验证</strong><small>Prompt 编排、LLM prefill/decode、结构与事实校验</small></div>
+          </div>
+
+          <h3>阶段—计算—硬件特性对照</h3>
+          <div class="role-table compact">
+            <div class="role-row role-head"><span>阶段</span><span>核心操作</span><span>主要特性</span></div>
+            <div class="role-row"><strong>文本编码</strong><span>GEMM、Attention、LayerNorm</span><span>算力/带宽混合；适合 GPU/NPU，批量影响巨大</span></div>
+            <div class="role-row"><strong>结构转换</strong><span>序列化、重编号、结构 token 化</span><span>数据相关控制流明显，序列长度随图规模变化</span></div>
+            <div class="role-row"><strong>图—文对齐</strong><span>投影、对比目标、交叉注意力</span><span>不同表示空间间的数据搬移与同步开销明显</span></div>
+            <div class="role-row"><strong>图任务预测</strong><span>分类头、节点对打分、图指令推理</span><span>输出规模与计算模式随任务类型变化</span></div>
+            <div class="role-row"><strong>LLM 生成</strong><span>prefill + 自回归 decode</span><span>prefill 偏计算；decode 偏权重/KV 访存</span></div>
+          </div>
+
+          <div class="callout warning"><strong>评测原则</strong><p>报告端到端延迟，并同时给出数据规模、图度分布、路径长度、文本长度、输出 token 数、任务精度和预处理成本。缺少这些条件的“倍数加速”很难横向比较。</p></div>
+        </div>
+      </section>
+
+      <section id="s09" class="chapter">
+        <div class="chapter-number">06</div>
+        <div class="chapter-body">
+          <h2>硬件：Transformer / LLM 推理加速</h2>
+          <p>在 LLM for Graph 中，Transformer 可能承担节点文本编码、图序列建模和最终生成。三种角色的批量、序列长度与重用模式不同，不能用同一套加速假设。</p>
+
+          <h3>先掌握的三类优化</h3>
+          <ol class="numbered-list">
+            <li><strong>IO-aware：</strong>减少 HBM 与片上 SRAM 之间的数据搬移，代表是 FlashAttention。</li>
+            <li><strong>稀疏与裁剪：</strong>减少 token、head 或位级计算，但需要处理不规则性和精度损失。</li>
+            <li><strong>量化与存内/近存：</strong>降低权重与 KV 的位宽或把乘加移近存储，重点是精度、可编程性与数据流。</li>
+          </ol>
+
+          <div class="resource-list">
+            <a class="resource" href="https://arxiv.org/abs/2205.14135" target="_blank" rel="noreferrer"><span class="paper-type">N22</span><span><strong>FlashAttention</strong><small>用 IO 复杂度理解 attention 优化的经典入口。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://doi.org/10.1109/HPCA51647.2021.00035" target="_blank" rel="noreferrer"><span class="paper-type">H21</span><span><strong>SpAtten</strong><small>级联 token/head 剪枝与稀疏 attention 架构。</small></span><span class="badge fact">已发表</span></a>
+            <a class="resource" href="https://doi.org/10.1145/3503222.3507738" target="_blank" rel="noreferrer"><span class="paper-type">A22</span><span><strong>TransPIM</strong><small>理解 Transformer 近存处理的数据布局与算子映射。</small></span><span class="badge fact">已发表</span></a>
+          </div>
+
+          <p class="source-note">补充课程：<a href="https://hanlab.mit.edu/courses/2024-fall-65940" target="_blank" rel="noreferrer">MIT 6.5940 EfficientML / TinyML</a>。前几讲适合建立剪枝、量化、稀疏与数据流基础。</p>
+        </div>
+      </section>
+
+      <section id="s13" class="chapter">
+        <div class="chapter-number">07</div>
+        <div class="chapter-body">
+          <h2>学习计划：从入门到能读系统论文</h2>
+          <p>下面是一条建议顺序。时间只是参考；判断是否进入下一阶段，应看能否完成对应产出。</p>
+
+          <div class="plan">
+            <div class="plan-week"><span>第 1–2 周</span><h3>基础计算</h3><ul><li>实现 BFS、最短路与多跳关系组合。</li><li>画出 Transformer attention 的张量形状与访存。</li><li>比较三种图序列化顺序对 token 长度的影响。</li></ul><strong>产出：3 张数据流图 + 1 份术语表</strong></div>
+            <div class="plan-week"><span>第 3–4 周</span><h3>算法范式</h3><ul><li>精读一篇 LLM for Graph survey。</li><li>选择 NLGraph / InstructGraph / KG-ICL 之一复现实验。</li><li>比较文本序列化、结构提示与图—文对齐三种范式。</li></ul><strong>产出：10 分钟组会导读 + 可运行 notebook</strong></div>
+            <div class="plan-week"><span>第 5–8 周</span><h3>系统剖析</h3><ul><li>搭一个最小图问答或图生成流水线。</li><li>分别测编码、结构转换、图任务预测与 prefill/decode。</li><li>改变图规模、路径长度、文本长度和输出长度。</li></ul><strong>产出：端到端 profile 与瓶颈归因</strong></div>
+            <div class="plan-week"><span>第 9–12 周</span><h3>硬件阅读</h3><ul><li>按 FlashAttention→SpAtten→TransPIM→GFMEngine 顺序阅读。</li><li>每篇只回答：任务、瓶颈、关键机制、代价、评测是否充分。</li><li>把论文机制映射回自己的 profile。</li></ul><strong>产出：一张算法—算子—硬件对照图</strong></div>
+          </div>
+
+          <h3>论文精读模板</h3>
+          <div class="template-box">
+            <ol><li>它解决的真实任务是什么？输入、输出和质量指标是什么？</li><li>基线系统的端到端瓶颈在哪里？占比怎样测得？</li><li>核心机制改变了数据表示、执行顺序、复用还是精度？</li><li>额外付出了什么：面积、能耗、预处理、存储、更新或质量损失？</li><li>数据集、图规模、模型规模和参数是否覆盖真实场景？</li><li>如果换成动态图、长文本、强谓词或更大 LLM，结论是否成立？</li></ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="s14" class="chapter library-section">
+        <div class="chapter-number">08</div>
+        <div class="chapter-body">
+          <h2>资料库：按主题搜索</h2>
+          <p>这里集中收录前文资料。可输入标题、关键词或 venue；也可以按主题筛选。列表优先收录 survey、代表性算法和与系统/硬件直接相关的论文。</p>
+
+          <div class="library-controls">
+            <label><span>搜索</span><input id="paperSearch" type="search" placeholder="例如：LLM4Graph、GFM、PIM、alignment" /></label>
+            <div class="filter-buttons" id="filterButtons">
+              <button class="active" data-filter="all">全部</button>
+              <button data-filter="survey">Survey</button>
+              <button data-filter="llm4graph">LLM for Graph</button>
+              <button data-filter="gfm">GFM</button>
+              <button data-filter="hardware">系统 / 硬件</button>
+            </div>
+          </div>
+
+          <div class="paper-library" id="paperLibrary">
+            <a data-tags="survey llm4graph" href="https://arxiv.org/abs/2312.02783" target="_blank" rel="noreferrer"><span>2023</span><strong>Large Language Models on Graphs: A Comprehensive Survey</strong><em>Survey · LLM4Graph</em></a>
+            <a data-tags="llm4graph" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/622afc4edf2824a1b6aaf5afe153fa93-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2023</span><strong>NLGraph</strong><em>NeurIPS · Graph Reasoning</em></a>
+            <a data-tags="llm4graph" href="https://aclanthology.org/2024.acl-long.245/" target="_blank" rel="noreferrer"><span>2024</span><strong>Graph Language Models</strong><em>ACL · Graph + Language</em></a>
+            <a data-tags="llm4graph" href="https://aclanthology.org/2024.findings-acl.801/" target="_blank" rel="noreferrer"><span>2024</span><strong>InstructGraph</strong><em>ACL Findings · Instruction Tuning</em></a>
+            <a data-tags="gfm" href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/652c104b5b0652a03684efeaf805463b-Abstract-Conference.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GOFA</strong><em>ICLR · Graph Foundation Model</em></a>
+            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/wang25eq.html" target="_blank" rel="noreferrer"><span>2025</span><strong>GIT</strong><em>ICML · Task Trees</em></a>
+            <a data-tags="gfm" href="https://proceedings.mlr.press/v267/chen25bl.html" target="_blank" rel="noreferrer"><span>2025</span><strong>Graph Generative Pre-trained Transformer</strong><em>ICML · Generative Graph Model</em></a>
+            <a data-tags="hardware gfm" href="https://doi.org/10.1145/3658617.3697645" target="_blank" rel="noreferrer"><span>2025</span><strong>GFMEngine</strong><em>ASP-DAC · GFM Accelerator</em></a>
+          </div>
+          <p id="noResults" class="no-results" hidden>没有匹配的资料，请换一个关键词或筛选条件。</p>
+        </div>
+      </section>
+
+      <section id="summary" class="chapter summary-section">
+        <div class="chapter-number">∑</div>
+        <div class="chapter-body">
+          <h2>总结</h2>
+          <p class="summary-line">从<strong>图任务</strong>出发，明确语言模型能帮助解决什么问题；选择合适的<strong>算法范式</strong>；拆解成编码、结构转换、预测与生成的<strong>计算特性</strong>；最后才讨论采用怎样的<strong>系统与硬件</strong>协同。</p>
+          <div class="final-principles">
+            <div><span>01</span><p>学习主线是 LLM for Graph、图基础模型，以及对应的系统与硬件加速。</p></div>
+            <div><span>02</span><p>先验证语言模型对图任务的精度和泛化贡献，再评估额外的训练与推理成本。</p></div>
+            <div><span>03</span><p>不要只看 kernel 加速；端到端系统还包括构图、表示转换、搬运、推理、生成和校验。</p></div>
+            <div><span>04</span><p>课题组工作的共同方法论是：识别数据不规则性，选择表示，再做跨阶段的数据流协同。</p></div>
+          </div>
+          <p class="footer-note">本页用于组内学习导航。已发表资料链接至论文或官方页面；在研稿不对外分发。页面中的“导读”是便于学习的归纳，不替代论文原文。</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <button class="back-top" id="backTop" aria-label="返回顶部">↑</button>
+  <script src="app.js"></script>
+</body>
+</html>
